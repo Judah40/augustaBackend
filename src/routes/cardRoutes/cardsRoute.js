@@ -6,9 +6,8 @@ const jwt = require("jsonwebtoken");
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //add card
 
-// TODO -> CREATE A SPERATE CONTROLLER FILE 
+// TODO -> CREATE A SPERATE CONTROLLER FILE
 route.post("/addcard", async (req, res) => {
-
   // TODO MOVE TO AUTH MIDDLEWARE FUNCTION
   const authHeader = req.headers.authorization;
 
@@ -23,8 +22,7 @@ route.post("/addcard", async (req, res) => {
   const { cardNumber, expiryDate, cvv, cardHolderName, cardType, zipCode } =
     req.body;
   try {
-
-      // TODO MOVE TO AUTH MIDDLEWARE FUNCTION
+    // TODO MOVE TO AUTH MIDDLEWARE FUNCTION
     const decoded = jwt.verify(token, "your-secret-key");
 
     // TODO MOVE TO A SEPERATE VALIDATOR FILE AND IMPORT
@@ -41,7 +39,6 @@ route.post("/addcard", async (req, res) => {
         .status(400)
         .json({ statusCode: 400, error: valid.error.details[0].message });
     } else {
-
       // TODO - HANDLE BUSINESS LOGIC IN A SERVICE FILE
       const existingCard = await card.findOne({ cardNumber: cardNumber });
       if (existingCard) {
@@ -176,23 +173,15 @@ route.delete("/delete/:id", async (req, res) => {
 });
 //get all cards
 route.get("/all", async (req, res) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res
-      .status(401)
-      .json({ error: "Authorization header missing or incorrect format." });
-  }
-
-  const token = authHeader.split(" ")[1]; //
   try {
-    const decoded = jwt.verify(token, "your-secret-key");
+    const { userId } = req.user;
 
-    const allCards = await card.find({ userId: decoded.id });
-    if (!allCards) {
-      return res.status(404).json({
-        message: "no cards available",
-      });
-    }
+    const allCards = await card.find({ userId });
+    // if (!allCards) {
+    //   return res.status(404).json({
+    //     message: "no cards available",
+    //   });
+    // }
     res.status(200).json({
       message: "All Cards",
       Cards: allCards,

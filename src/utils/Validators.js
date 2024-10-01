@@ -10,7 +10,7 @@ const Registerschema = Joi.object({
   lastName: Joi.string().min(2).max(30).required(),
   dateOfBirth: Joi.date().less(date).required(), // Date before today
   address: Joi.string().required(),
-  id: Joi.string().alphanum().length(10).required(), // Example: ID as alphanumeric and 10 characters long
+  nationalId: Joi.string().alphanum().length(10).required(), // Example: ID as alphanumeric and 10 characters long
   phoneNumber: Joi.string()
     .pattern(/^[0-9]{9}$/)
     .required(), // 10-digit number
@@ -41,7 +41,7 @@ const registerValidator = (
   lastName,
   dateOfBirth,
   address,
-  id,
+  nationalId,
   phoneNumber
 ) => {
   const data = {
@@ -49,7 +49,7 @@ const registerValidator = (
     lastName,
     dateOfBirth,
     address,
-    id,
+    nationalId,
     phoneNumber,
   };
   const value = Registerschema.validate(data);
