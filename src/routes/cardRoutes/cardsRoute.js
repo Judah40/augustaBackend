@@ -2,7 +2,7 @@ const express = require("express");
 const validator = require("../../utils/Validators");
 const card = require("../../models/Card");
 const route = express.Router();
-const jwt = require("jsonwebtoken");
+const {requireAuthenticatedUser} = require("../../middlewares/auth.middleware");
 const { default: mongoose } = require("mongoose");
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //add card

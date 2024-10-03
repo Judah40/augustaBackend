@@ -32,6 +32,16 @@ const cardSchema = Joi.object({
   cardType: Joi.string().required(),
   zipCode: Joi.string(),
 });
+
+//wallet schema validation
+
+const walletSchema = Joi.object({
+  walletName: Joi.string().required(),
+  currency: Joi.string().length(3).required(), // assuming currency is a 3-letter code like 'USD'
+  WalletBalance: Joi.number().min(0).required(),
+  walletStatus: Joi.boolean().required(), // walletStatus as a boolean
+  expiryDate: Joi.date().greater("now").optional(), // expiry date should be in the future
+});
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //FUNCTION
 
@@ -86,4 +96,28 @@ const cardValidator = (
   const value = cardSchema.validate(data);
   return value;
 };
-module.exports = { registerValidator, signinVlidator, cardValidator };
+
+//wallet validator
+const walletValidator = (
+  walletName,
+  currency,
+  WalletBalance,
+  walletStatus,
+  expiryDate
+) => {
+  const data = {
+    walletName,
+    currency,
+    WalletBalance,
+    walletStatus,
+    expiryDate,
+  };
+  const value = walletSchema.validate(data);
+  return value;
+};
+module.exports = {
+  registerValidator,
+  signinVlidator,
+  cardValidator,
+  walletValidator,
+};

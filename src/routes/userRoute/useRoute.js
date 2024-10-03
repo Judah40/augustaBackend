@@ -3,8 +3,7 @@ const validator = require("../../utils/Validators");
 const {
   generateOTP,
   generateUsersJwtAccessToken,
-} = require("../../utils/generateOTP");
-const jwt = require("jsonwebtoken");
+} = require("../../utils/generateOtp");
 const bcrypt = require("bcrypt");
 const passwordModel = require("../../models/password");
 const router = express.Router();
@@ -134,7 +133,6 @@ router.post("/login", async (req, res) => {
 
   const valid = validator.signinVlidator(phoneNumber, password);
 
-  // TODO move to middleware function
   if (valid.error) {
     return res
       .status(400)

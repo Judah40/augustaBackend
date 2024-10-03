@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-const date = new Date();
 const cardSchema = mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
   cardNumber: { type: String, required: true },

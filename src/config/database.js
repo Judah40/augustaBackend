@@ -11,6 +11,7 @@ const connectionOptions = {
   family: 4,
 };
 const connectDB = async (app) => {
+  console.log(dbUrl)
   try {
     if (app) {
       await mongoose.connect(dbUrl, connectionOptions);
@@ -20,7 +21,7 @@ const connectDB = async (app) => {
       });
     }
   } catch (error) {
-    console.error("❌ MongoDB connection error:", err.message);
+    console.error("❌ MongoDB connection error:", error.message);
 
     setTimeout(connectDB, 5000); // Retry connection every 5 seconds
   }
