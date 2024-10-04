@@ -128,16 +128,16 @@ router.post("/setup-password", requireAuthenticatedUser, async (req, res) => {
 });
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //sign in
-router.post("/login", async (req, res) => {
+router.post("/login", validator.signinVlidator, async (req, res) => {
   const { phoneNumber, password } = req.body;
 
-  const valid = validator.signinVlidator(phoneNumber, password);
+  // const valid = validator.signinVlidator(phoneNumber, password);
 
-  if (valid.error) {
-    return res
-      .status(400)
-      .json({ statusCode: 400, error: valid.error.details[0].message });
-  }
+  // if (valid.error) {
+  //   return res
+  //     .status(400)
+  //     .json({ statusCode: 400, error: valid.error.details[0].message });
+  // }
   try {
     const user = await userModel.findOne({ phoneNumber });
 
