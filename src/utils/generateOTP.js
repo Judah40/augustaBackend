@@ -1,7 +1,6 @@
 import { randomBytes as _randomBytes } from "crypto";
-import jwt from "jsonwebtoken";
 
-const generateOTP = () => {
+const handleGeneratingOtp = () => {
   // Generate a random 3-byte (6-digit) hexadecimal number
   const randomBytes = _randomBytes(3);
   const randomHex = randomBytes.toString("hex");
@@ -18,4 +17,4 @@ const generateOTP = () => {
   return formattedSixDigitNumber;
 };
 
-export default generateOTP;
+export default handleGeneratingOtp;
