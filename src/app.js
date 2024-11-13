@@ -1,21 +1,16 @@
-const express = require("express");
 require("dotenv").config();
-const connect = require("../config/database");
-//CONNECT TO DB
-connect();
+const express = require("express");
 const userRoute = require("./routes/userRoute/useRoute");
 const cardRoute = require("../src/routes/cardRoutes/cardsRoute");
+const walletRoute = require("../src/routes/walletRoute/walletRoute");
+const { requireAuthenticatedUser } = require("./middlewares/auth.middleware");
+
 const app = express();
 app.use(express.json());
-app.use("/user", userRoute);
-app.use("/card", cardRoute);
-app.get("/", (req, res) => {
-  console.log("hello world");
-  res.status(200).json({
-    message: "Hello world",
-  });
-});
+//user plural for routes e.g (/users, /cards)
+app.use("/users", userRoute);
+app.use("/cards", requireAuthenticatedUser, cardRoute);
+app.use("/wallet", requireAuthenticatedUser, walletRoute);
 
-app.listen(3000, () => {
-  console.log("server is running on port 3000");
-});
+
+module.exports = app;

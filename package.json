@@ -1,10 +1,10 @@
 {
   "name": "augustabackend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +12,7 @@
   "description": "",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "config": "^3.3.12",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "joi": "^17.13.3",
