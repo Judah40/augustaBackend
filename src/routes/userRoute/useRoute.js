@@ -1,17 +1,17 @@
 const express = require("express");
 const validator = require("../../utils/Validators");
-const {
-  generateOTP,
-  generateUsersJwtAccessToken,
-} = require("../../utils/generateOtp");
+
 const bcrypt = require("bcrypt");
 const passwordModel = require("../../models/password");
 const router = express.Router();
 const userModel = require("../../models/User");
-const { jwtSecret } = require("../../config/default.config");
 const {
   requireAuthenticatedUser,
 } = require("../../middlewares/auth.middleware");
+const {
+  generateOTP,
+  generateUsersJwtAccessToken,
+} = require("../../utils/generateOtp");
 //USER ROUTES
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //sign up
