@@ -2,7 +2,7 @@ const { jwtSecret } = require("../config/default.config");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 
-exports.generateOTP = () => {
+const generateOTP = () => {
   // Generate a random 3-byte (6-digit) hexadecimal number
   const randomBytes = crypto.randomBytes(3);
   const randomHex = randomBytes.toString("hex");
@@ -18,14 +18,5 @@ exports.generateOTP = () => {
 
   return formattedSixDigitNumber;
 };
-exports.generateUsersJwtAccessToken = (user) => {
-  try {
-    return jwt.sign({ userId: user }, jwtSecret, {
-      expiresIn: "1d",
-    });
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
 
+module.exports = generateOTP;
