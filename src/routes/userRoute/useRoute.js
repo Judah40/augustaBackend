@@ -5,15 +5,29 @@ const bcrypt = require("bcrypt");
 const passwordModel = require("../../models/password");
 const router = express.Router();
 const userModel = require("../../models/User");
-const path = require("path");
+const crypto = require("crypto");
 
 const {
   requireAuthenticatedUser,
 } = require("../../middlewares/auth.middleware");
-const generateUsersJwtAccessToken = require("../../utils/signJwt");
-const generateOTP = require("../../utils/generateOtp");
 //USER ROUTES
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const generateOTP = () => {
+  // Generate a random 3-byte (6-digit) hexadecimal number
+  const randomBytes = crypto.randomBytes(3);
+  const randomHex = randomBytes.toString("hex");
+
+  // Convert the hexadecimal number to decimal
+  const randomDecimal = parseInt(randomHex, 16);
+
+  // Ensure the number is six digits by taking the remainder when divided by 1,000,000
+  const sixDigitNumber = randomDecimal % 1000000;
+
+  // Ensure leading zeros are included if needed
+  const formattedSixDigitNumber = String(sixDigitNumber).padStart(6, "0");
+
+  return formattedSixDigitNumber;
+};
 //sign up
 router.post("/register", async (req, res) => {
   try {
@@ -63,6 +77,19 @@ router.post("/register", async (req, res) => {
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const { jwtSecret } = require("../config/default.config");
+const jwt = require("jsonwebtoken");
+
+const generateUsersJwtAccessToken = (user) => {
+  try {
+    return jwt.sign({ userId: user }, jwtSecret, {
+      expiresIn: "1d",
+    });
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 //verify otp
 
 router.post("/verifyOTP", async (req, res) => {
