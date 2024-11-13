@@ -11,11 +11,6 @@ app.use(express.json());
 app.use("/users", userRoute);
 app.use("/cards", requireAuthenticatedUser, cardRoute);
 app.use("/wallet", requireAuthenticatedUser, walletRoute);
-app.get("/", (req, res) => {
-  console.log("hello world");
-  res.status(200).json({
-    message: "Hello world",
-  });
-});
+
 
 module.exports = app;

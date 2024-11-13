@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const { dbUrl, appPort, appUrl } = require("./default.config");
+const {  appPort,  dbProductionUrl } = require("./default.config");
 
-const baseUrl = dbUrl;
 
 const connectionOptions = {
   autoIndex: true,
@@ -11,13 +10,12 @@ const connectionOptions = {
   family: 4,
 };
 const connectDB = async (app) => {
-  console.log(dbUrl)
   try {
     if (app) {
-      await mongoose.connect(dbUrl, connectionOptions);
+      await mongoose.connect(dbProductionUrl, connectionOptions);
       console.log("✅ Connected to Database Successfully");
       app.listen(appPort, () => {
-        console.log(`🚀 Server Listening on http://${appUrl}:${appPort}`);
+        console.log(`🚀 Server Listening `);
       });
     }
   } catch (error) {
