@@ -1,5 +1,6 @@
-const jwt = require("jsonwebtoken");
-const { jwtSecret } = require("../config/default.config");
+import pkg from 'jsonwebtoken';
+const { verify } = pkg;
+import { jwtSecret } from "../config/default.config.js";
 
 const getAuthToken = (req) => {
   try {
@@ -27,7 +28,7 @@ const requireAuthenticatedUser = async (req, res, next) => {
         .json({ message: "Invalid/Missing Authentication Token" });
     }
 
-    const decodedToken = jwt.verify(token, jwtSecret);
+    const decodedToken = verify(token, jwtSecret);
 
     req.user = {
       userId: decodedToken.userId,
@@ -51,6 +52,4 @@ const requireAuthenticatedUser = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  requireAuthenticatedUser,
-};
+export default  requireAuthenticatedUser

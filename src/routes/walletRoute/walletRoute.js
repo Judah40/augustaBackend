@@ -1,7 +1,8 @@
-const express = require("express");
-const router = express.Router();
-const wallet = require("../../models/wallet");
-const validator = require("../../utils/Validators");
+import { Router } from "express";
+const router = Router();
+import wallet from "../../models/wallet.js";
+import validators from "../../utils/Validators.js";
+const { walletValidator } = validators;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //create wallet
 router.post("/add", async (req, res) => {
@@ -10,7 +11,7 @@ router.post("/add", async (req, res) => {
     const { walletName, currency, WalletBalance, walletStatus, expiryDate } =
       req.body;
 
-    const valid = validator.walletValidator(
+    const valid = walletValidator(
       walletName,
       currency,
       WalletBalance,
@@ -22,7 +23,7 @@ router.post("/add", async (req, res) => {
         .status(400)
         .json({ statusCode: 400, error: valid.error.details[0].message });
     }
-    const existingWallet = await wallet.findOne({ walletName: walletName });
+    const existingWallet = await findOne({ walletName: walletName });
 
     if (existingWallet) {
       return res.status(400).json({
@@ -31,7 +32,7 @@ router.post("/add", async (req, res) => {
       });
     }
 
-    const allWallets = await wallet.find({ userId });
+    const allWallets = await find({ userId });
     console.log(allWallets.length);
     if (allWallets.length === 5) {
       return res.status(429).json({
@@ -133,4 +134,4 @@ router.delete("/delete/:id", async (req, res) => {
     return res.status(500).json({ statusbar: 500, message: error.message });
   }
 });
-module.exports = router;
+export default router;

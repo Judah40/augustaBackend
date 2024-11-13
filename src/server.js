@@ -1,5 +1,5 @@
-const app = require("./app");
-const connectDB = require("./config/database");
+import app from './app.js'; // Make sure to include the '.js' extension
+import connectDB from "./config/database.js";
 
 const startServer = async () => {
   connectDB(app);

@@ -1,8 +1,12 @@
-const express = require("express");
-const validator = require("../../utils/Validators");
-const card = require("../../models/Card");
+// const express = require("express");
+import express from "express";
+// const validator = require("../../utils/Validators");
+import validator from "../../utils/Validators.js";
+// const card = require("../../models/Card");
+import card from "../../models/Card.js";
 const route = express.Router();
-const { default: mongoose } = require("mongoose");
+// const { default: mongoose } = require("mongoose");
+import mongoose from "mongoose";
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //add card
 
@@ -180,4 +184,4 @@ route.get("/:id", async (req, res, next) => {
   }
 });
 
-module.exports = route;
+export default route;

@@ -1,4 +1,5 @@
-require("dotenv").config();
+import dotenv from 'dotenv';
+dotenv.config();
 const {
   APP_PORT,
   DB_HOST,
@@ -7,9 +8,7 @@ const {
   JWT_SECRET,
   MONGODB_URI,
 } = process.env;
-module.exports = {
-  appPort: APP_PORT,
-  dbUrl: `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`,
-  jwtSecret: JWT_SECRET,
-  dbProductionUrl: MONGODB_URI,
-};
+export const appPort = APP_PORT;
+export const dbUrl = `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
+export const jwtSecret = JWT_SECRET;
+export const dbProductionUrl = MONGODB_URI;

@@ -1,5 +1,5 @@
-const { required } = require("joi");
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
@@ -24,5 +24,5 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-const user = mongoose.model("user", userSchema);
-module.exports = user; //export the model to use in other files
+const userModel = mongoose.model("user", userSchema);
+export default userModel; //export the model to use in other files

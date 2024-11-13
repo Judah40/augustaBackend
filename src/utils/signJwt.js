@@ -1,9 +1,9 @@
-const { jwtSecret } = require("../config/default.config");
-const jwt = require("jsonwebtoken");
-
+import { jwtSecret } from "../config/default.config.js";
+import pkg from 'jsonwebtoken';
+const { sign } = pkg;
 const generateUsersJwtAccessToken = (user) => {
   try {
-    return jwt.sign({ userId: user }, jwtSecret, {
+    return sign({ userId: user }, jwtSecret, {
       expiresIn: "1d",
     });
   } catch (error) {
@@ -12,4 +12,4 @@ const generateUsersJwtAccessToken = (user) => {
   }
 };
 
-module.exports = generateUsersJwtAccessToken;
+export default generateUsersJwtAccessToken;
