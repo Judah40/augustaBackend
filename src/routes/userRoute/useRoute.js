@@ -16,7 +16,7 @@ import crypto from "crypto";
 //   requireAuthenticatedUser,
 // } = require("../../middlewares/auth.middleware");
 import requireAuthenticatedUser from "../../middlewares/auth.middleware.js";
-import generateOTP from "../../utils/generateOtp.js";
+import handleGeneratingOtp from "../../utils/generateOtp.js";
 import generateUsersJwtAccessToken from "../../utils/signJwt.js";
 //USER ROUTES
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,7 +39,7 @@ router.post("/register", async (req, res) => {
         .status(400)
         .json({ statusCode: 400, error: valid.error.details[0].message });
     }
-    const otp = generateOTP();
+    const otp = handleGeneratingOtp();
     const phoneNumberExists = await userModel.findOne({ phoneNumber }).exec();
     if (phoneNumberExists) {
       return res.status(400).json({ message: "Phone Number Already Exist." });
@@ -70,7 +70,6 @@ router.post("/register", async (req, res) => {
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 //verify otp
 
