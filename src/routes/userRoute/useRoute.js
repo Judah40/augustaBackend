@@ -5,13 +5,18 @@ const bcrypt = require("bcrypt");
 const passwordModel = require("../../models/password");
 const router = express.Router();
 const userModel = require("../../models/User");
+const path = require("path");
+const { generateOTP, generateUsersJwtAccessToken } = require(path.resolve(
+  __dirname,
+  "../../utils/generateOtp"
+));
 const {
   requireAuthenticatedUser,
 } = require("../../middlewares/auth.middleware");
-const {
-  generateOTP,
-  generateUsersJwtAccessToken,
-} = require("../../utils/generateOtp");
+// const {
+//   generateOTP,
+//   generateUsersJwtAccessToken,
+// } = require("../../utils/generateOtp");
 //USER ROUTES
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //sign up
