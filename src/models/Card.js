@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 
-const cardSchema = mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+const cardSchema = Schema({
+  userId: { type: Schema.Types.ObjectId, ref: "user" },
   cardNumber: { type: String, required: true },
   cardHolderName: { type: String, required: true },
   cvv: { type: String, required: true },
@@ -10,6 +10,6 @@ const cardSchema = mongoose.Schema({
   ZipCode: { type: String, required: false },
 });
 
-const card = mongoose.model("card", cardSchema);
+const card = model("card", cardSchema);
 
-module.exports = card;
+export default card;

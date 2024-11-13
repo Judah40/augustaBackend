@@ -1,3 +1,3 @@
-const express = require("express")
+import { Router } from "express"
 
-const route = express.Router()
+const route = Router()

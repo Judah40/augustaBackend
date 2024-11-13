@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 
-const walletSchema = mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
-  walletName: { type: mongoose.Schema.Types.String, required: true },
+const walletSchema = Schema({
+  userId: { type: Schema.Types.ObjectId, ref: "user" },
+  walletName: { type: Schema.Types.String, required: true },
   currency: { type: String, required: true },
   WalletBalance: {
-    type: mongoose.Schema.Types.Decimal128,
+    type: Schema.Types.Decimal128,
     required: true,
     default: 0.0,
   },
@@ -13,6 +13,6 @@ const walletSchema = mongoose.Schema({
   expiryDate: { type: Date, required: true },
 });
 
-const wallet = mongoose.model("wallet", walletSchema);
+const wallet = model("wallet", walletSchema);
 
-module.exports = wallet;
+export default wallet;

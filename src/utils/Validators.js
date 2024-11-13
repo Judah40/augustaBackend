@@ -1,4 +1,5 @@
-const Joi = require("joi");
+// const Joi = require("joi");
+import Joi from "joi";
 const date = new Date();
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -221,7 +222,7 @@ const transactionValidator = (
   const value = transactionSchema.validate(data);
   return value;
 };
-module.exports = {
+export default {
   registerValidator,
   signinVlidator,
   cardValidator,

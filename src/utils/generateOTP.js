@@ -1,10 +1,9 @@
-const { jwtSecret } = require("../config/default.config");
-const crypto = require("crypto");
-const jwt = require("jsonwebtoken");
+import { randomBytes as _randomBytes } from "crypto";
+import jwt from "jsonwebtoken";
 
 const generateOTP = () => {
   // Generate a random 3-byte (6-digit) hexadecimal number
-  const randomBytes = crypto.randomBytes(3);
+  const randomBytes = _randomBytes(3);
   const randomHex = randomBytes.toString("hex");
 
   // Convert the hexadecimal number to decimal
@@ -19,4 +18,4 @@ const generateOTP = () => {
   return formattedSixDigitNumber;
 };
 
-module.exports = generateOTP;
+export default generateOTP;

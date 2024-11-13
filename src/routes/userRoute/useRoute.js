@@ -1,33 +1,26 @@
-const express = require("express");
-const validator = require("../../utils/Validators");
-
-const bcrypt = require("bcrypt");
-const passwordModel = require("../../models/password");
+// const express = require("express");
+import express from "express";
+// const validator = require("../../utils/Validators");
+import validator from "../../utils/Validators.js";
+import bcrypt from "bcrypt";
+// const bcrypt = require("bcrypt");
+// const passwordModel = require("../../models/password");
+import passwordModel from "../../models/password.js";
 const router = express.Router();
-const userModel = require("../../models/User");
-const crypto = require("crypto");
+// const userModel = require("../../models/User");
+import userModel from "../../models/User.js";
+// const crypto = require("crypto");
+import crypto from "crypto";
 
-const {
-  requireAuthenticatedUser,
-} = require("../../middlewares/auth.middleware");
+// const {
+//   requireAuthenticatedUser,
+// } = require("../../middlewares/auth.middleware");
+import requireAuthenticatedUser from "../../middlewares/auth.middleware.js";
+import generateOTP from "../../utils/generateOtp.js";
+import generateUsersJwtAccessToken from "../../utils/signJwt.js";
 //USER ROUTES
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const generateOTP = () => {
-  // Generate a random 3-byte (6-digit) hexadecimal number
-  const randomBytes = crypto.randomBytes(3);
-  const randomHex = randomBytes.toString("hex");
 
-  // Convert the hexadecimal number to decimal
-  const randomDecimal = parseInt(randomHex, 16);
-
-  // Ensure the number is six digits by taking the remainder when divided by 1,000,000
-  const sixDigitNumber = randomDecimal % 1000000;
-
-  // Ensure leading zeros are included if needed
-  const formattedSixDigitNumber = String(sixDigitNumber).padStart(6, "0");
-
-  return formattedSixDigitNumber;
-};
 //sign up
 router.post("/register", async (req, res) => {
   try {
@@ -77,19 +70,8 @@ router.post("/register", async (req, res) => {
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const { jwtSecret } = require("../config/default.config");
-const jwt = require("jsonwebtoken");
 
-const generateUsersJwtAccessToken = (user) => {
-  try {
-    return jwt.sign({ userId: user }, jwtSecret, {
-      expiresIn: "1d",
-    });
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
+
 //verify otp
 
 router.post("/verifyOTP", async (req, res) => {
@@ -194,4 +176,4 @@ router.post("/login", validator.signinVlidator, async (req, res) => {
     res.status(500).json({ message: error.message, statusCode: 500 });
   }
 });
-module.exports = router;
+export default router;

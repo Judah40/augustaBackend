@@ -1,5 +1,6 @@
-const mongoose = require("mongoose");
-const {  appPort,  dbProductionUrl } = require("./default.config");
+import pkg from 'mongoose';
+const { connect, connection } = pkg;
+import { appPort, dbProductionUrl } from "./default.config.js";
 
 
 const connectionOptions = {
@@ -12,7 +13,7 @@ const connectionOptions = {
 const connectDB = async (app) => {
   try {
     if (app) {
-      await mongoose.connect(dbProductionUrl, connectionOptions);
+      await connect(dbProductionUrl, connectionOptions);
       console.log("✅ Connected to Database Successfully");
       app.listen(appPort, () => {
         console.log(`🚀 Server Listening `);
@@ -24,23 +25,23 @@ const connectDB = async (app) => {
     setTimeout(connectDB, 5000); // Retry connection every 5 seconds
   }
 
-  mongoose.connection.on("connected", () => {
+  connection.on("connected", () => {
     console.log("MongoDB connection established successfully.");
   });
 
-  mongoose.connection.on("error", (err) => {
+  connection.on("error", (err) => {
     console.error(`MongoDB connection error: ${err}`);
   });
 
-  mongoose.connection.on("disconnected", () => {
+  connection.on("disconnected", () => {
     console.log("MongoDB connection disconnected.");
   });
 
   process.on("SIGINT", async () => {
-    await mongoose.connection.close();
+    await connection.close();
     console.log("MongoDB connection closed due to application termination.");
     process.exit(0);
   });
 };
 
-module.exports = connectDB;
+export default connectDB;
