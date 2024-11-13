@@ -17,7 +17,7 @@ import crypto from "crypto";
 // } = require("../../middlewares/auth.middleware");
 import requireAuthenticatedUser from "../../middlewares/auth.middleware.js";
 import generateUsersJwtAccessToken from "../../utils/signJwt.js";
-import handleGeneratingOtp from "../../utils/generateOtp.js";
+import handleGeneratingOtp from "../../utils/otpgenerator.js";
 //USER ROUTES
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
